@@ -112,9 +112,12 @@ class MapServer
 	else
 		puts "Starting local server"
 		require 'rackup'
+#		require 'rack'
 
 		server = MapServer.new(ARGV[0],0)
 		app = Proc.new { |env| server.call(env) }
-		Rackup::Handler::WEBrick.run(app)
+#		Rackup::Handler::WEBrick.run(app)
+                options = { Host: "0.0.0.0" }
+		Rackup::Handler::WEBrick.run(app, **options )
 	end
 end
